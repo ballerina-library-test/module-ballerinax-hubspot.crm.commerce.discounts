@@ -37,7 +37,7 @@ string newHsLabel = "test_updated_label";
 string newHsType = "PERCENT";
 
 // create connection config for live client
-ConnectionConfig config = {
+ConnectionConfig connectionConfig = {
     auth: enableClientOauth2 ? {
             clientId,
             clientSecret,
@@ -47,7 +47,7 @@ ConnectionConfig config = {
 };
 
 // create live client
-final Client hsClient = check new (config);
+final Client hsClient = check new (connectionConfig);
 
 @test:Config {
     groups: ["live_service_test"],
