@@ -1,22 +1,24 @@
 # Examples
 
-The `ballerinax/hubspot.crm.commerce.discounts` connector provides means to create and to manage discounts in various scenarios.
+The `hubspot.crm.commerce.discounts` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples), covering use cases like discount management, festival discounts, and seasonal discount management.
 
-1. [Discount Manager](https://github.com/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/discount_manager) - see how the Hubspot API can be used to create discount and manage it through endpoints.
-2. [Festival Discounts](https://github.com/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/festival_discounts) - see how the Hubspot API can be used to create and to manage multiple discounts at a time.
+1. [Discount manager](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/discount_manager) - Manage and organize discount codes and promotional offers within HubSpot CRM.
+
+2. [Festival discounts](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/festival_discounts) - Create and manage special discount campaigns for festival seasons and holiday events.
+
+3. [Seasonal discount management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/seasonal-discount-management) - Automate the creation and management of seasonal discount campaigns throughout the year.
 
 ## Prerequisites
 
-1. Generate hubspot credentials to authenticate the connector as described in the [setup guide](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/README.md).
+1. Generate HubSpot credentials to authenticate the connector as described in the [Setup guide](https://central.ballerina.io/ballerinax/hubspot.crm.commerce.discounts/latest#setup-guide).
 
-2. For each example, create a `Config.toml` file with the related configuration. Here's an example of how your `Config.toml `file should look:
+2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml` file should look:
+
     ```toml
-    clientId = "<Client ID>"
-    clientSecret = "<Client Secret>"
-    refreshToken = "<Access Token>"
+    token = "<Access Token>"
     ```
 
-## Running an example
+## Running an Example
 
 Execute the following commands to build an example from the source:
 
@@ -30,22 +32,4 @@ Execute the following commands to build an example from the source:
 
     ```bash
     bal run
-    ```
-
-## Building the examples with the local module
-
-**Warning**: Due to the absence of support for reading local repositories for single Ballerina files, the Bala of the module is manually written to the central repository as a workaround. Consequently, the bash script may modify your local Ballerina repositories.
-
-Execute the following commands to build all the examples against the changes you have made to the module locally:
-
-* To build all the examples:
-
-    ```bash
-    ./build.sh build
-    ```
-
-* To run all the examples:
-
-    ```bash
-    ./build.sh run
     ```

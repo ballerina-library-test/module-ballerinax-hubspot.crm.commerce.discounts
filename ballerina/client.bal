@@ -220,6 +220,8 @@ public isolated client class Client {
         return self.clientEp->post(resourcePath, request, httpHeaders);
     }
 
+    # Returns a collection of discount objects matching the specified search criteria and filters.
+    #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function post search(PublicObjectSearchRequest payload, map<string|string[]> headers = {}) returns CollectionResponseWithTotalSimplePublicObjectForwardPaging|error {

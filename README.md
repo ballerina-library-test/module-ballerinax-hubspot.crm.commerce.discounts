@@ -1,172 +1,111 @@
-# Ballerina HubSpot CRM Commerce Discounts connector
+
+# Ballerina hubspot.crm.commerce.discounts connector
 
 [![Build](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/actions/workflows/ci.yml)
+[![Trivy](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/actions/workflows/trivy-scan.yml)
+[![GraalVM Check](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/actions/workflows/build-with-bal-test-graalvm.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/actions/workflows/build-with-bal-test-graalvm.yml)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/commits/master)
 [![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/hubspot.crm.commerce.discounts.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%hubspot.crm.commerce.discounts)
 
 ## Overview
 
-[HubSpot](https://www.hubspot.com/our-story) is an AI-powered customer relationship management (CRM) platform.
+[HubSpot](https://www.hubspot.com/) is a comprehensive customer platform that provides marketing, sales, customer service, and CRM software to help businesses grow better by attracting, engaging, and delighting customers.
 
-The `ballerinax/hubspot.crm.commerce.discounts` connector offers APIs to connect and interact with the [HubSpot Discounts API](https://developers.hubspot.com/docs/guides/api/crm/commerce/discounts) endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api/overview).
-
+The `ballerinax/hubspot.crm.commerce.discounts` package offers APIs to connect and interact with [HubSpot API](https://developers.hubspot.com/docs/api/overview) endpoints, specifically based on [HubSpot API v3](https://developers.hubspot.com/docs/api/crm/objects).
 ## Setup guide
 
-You need a [HubSpot developer account](https://developers.hubspot.com/get-started) with an [app](https://developers.hubspot.com/docs/guides/apps/public-apps/overview) to use HubSpot connectors.
->To create a HubSpot Developer account, [click here](https://app.hubspot.com/signup-hubspot/developers?_ga=2.207749649.2047916093.1734412948-232493525.1734412948&step=landing_page)
+To use the HubSpot CRM Commerce Discounts connector, you must have access to the HubSpot API through a [HubSpot developer account](`https://developers.hubspot.com/`) and obtain an API access token. If you do not have a HubSpot account, you can sign up for one [here](`https://www.hubspot.com/`).
 
-### Step 1: Create HubSpot Developer Project
+### Step 1: Create a HubSpot Account
 
-1. [Login](https://app.hubspot.com/login) to HubSpot developer account.
+1. Navigate to the [HubSpot website](`https://www.hubspot.com/`) and sign up for an account or log in if you already have one.
 
-2. Create a public app by clicking on "Create app".
+2. Ensure you have a Professional or Enterprise plan, as the Commerce Hub features including discount management are restricted to users on these plans.
 
-   ![Building public image](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/build_public_app.png)
+### Step 2: Generate an API Access Token
 
-3. Click on "Create app".
+1. Log in to your HubSpot account.
 
-   ![Creating App](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/create_app.png)
+2. In the main navigation, click the settings icon (gear icon) in the top right corner to access your account settings.
 
-4. Under "App Info"
-   - Enter Public app name.
-   - Update App logo (optional).
-   - Update Description (optional).
+3. In the left sidebar menu, navigate to Integrations > Private Apps.
 
-   ![Entering App details](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/enter_app_details.png)
+4. Click Create a private app and configure the necessary scopes for CRM commerce operations.
 
-   Then move to "Auth" tab.
+5. Once created, copy the access token from the Auth tab of your private app.
 
-5. Setup the "Redirect URLs" with respective links.
-
-   ![Auth Tab](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/auth_page.png)
-
-   Finally Create the app.
-
-### Step 2: Get Client ID and Client secret
-
-Navigate to "Auth" tab.
-
-![Client ID & Secret](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/client_id_secret.png)
-
-### Step 3: Get access token and refresh token
-
-1. Set scopes under "Auth" tab for your app based on the [API requirements](https://developers.hubspot.com/docs/reference/api).
-
-   ![API Reference page](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/exmaple_api_reference.png).
-
-   Enable scopes required for HubSpot CRM Discounts API.
-   - `crm.objects.line_items.read`
-   - `crm.objects.line_items.write`
-   - `oauth`
-
-2. Under "Auth" tab under Sample install URL (OAuth) section copy the full URL.
-   ```
-   https://app.hubspot.com/oauth/authorize?client_id=<client_id>&redirect_uri=<redirect_url>&scope=<scopes>
-   ```
-
-3. Choose the preferred account.
-
-   ![Choosing Accounts](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/main/docs/setup/resources/account_chose.png)
-
-   Choose account and authorize the client.
-
-4. Check URL tab and find the authorization code.
-
-5. Send a http request to the HubSpot.
-   - Linux/MacOS
-
-      ```bash
-      curl --request POST \
-      --url https://api.hubapi.com/oauth/v1/token \ --header 'content-type: application/x-www-form-urlencoded' \
-      --data 'grant_type=authorization_code&code=<code>&redirect_uri=http://localhost:9090&client_id=<client_id>&client_secret=<client_secret>'
-      ```
-
-6. Above command returns the access token and refresh token.
-
-7. Use these tokens to authorize the client.
-
+> **Tip:** You must copy and store this key somewhere safe. It won't be visible again in your account settings for security reasons.
 ## Quickstart
 
-Follow the below steps to use the `HubSpot CRM Commerce Discounts` connector in your Ballerina application.
+To use the `HubSpot CRM Commerce Discounts` connector in your Ballerina application, update the `.bal` file as follows:
 
 ### Step 1: Import the module
 
-Import the `hubspot.crm.commerce.discounts` module and `oauth2` module.
-
 ```ballerina
 import ballerina/oauth2;
-import ballerinax/hubspot.crm.commerce.discounts;
+import ballerinax/hubspot.crm.commerce.discounts as hscrmcd;
 ```
 
 ### Step 2: Instantiate a new connector
 
-1. Instantiate a `OAuth2RefreshTokenGrantConfig` with the obtained credentials and initialize the connector with it.
+1. Create a `Config.toml` file with your credentials:
 
-    ```ballerina
-    configurable string clientId = ?;
-    configurable string clientSecret = ?;
-    configurable string refreshToken = ?;
+```toml
+clientId = "<Your_Client_Id>"
+clientSecret = "<Your_Client_Secret>"
+refreshToken = "<Your_Refresh_Token>"
+```
 
-    ConnectionConfig config = {
-        auth: {
-            clientId,
-            clientSecret,
-            refreshToken,
-            credentialBearer: oauth2:POST_BODY_BEARER
-        }
-   };
-   final Client hubSpotClient = check new (config);
-   ```
+2. Create a `hscrmcd:ConnectionConfig` and initialize the client:
 
-2. Create a `Config.toml` file inside the Ballerina package and add the following configurations with the values retrieved in the earlier steps.
+```ballerina
+configurable string clientId = ?;
+configurable string clientSecret = ?;
+configurable string refreshToken = ?;
 
-    ```toml
-    clientId = <Client Id>
-    clientSecret = <Client Secret>
-    refreshToken = <Refresh Token>
-    ```
+final hscrmcd:Client hubspotDiscountsClient = check new({
+    auth: {
+        clientId,
+        clientSecret,
+        refreshToken
+    }
+});
+```
 
 ### Step 3: Invoke the connector operation
 
-Now, utilize the available connector operations. A sample use case is shown below.
+Now, utilize the available connector operations.
 
-#### Create a New Discount
-
-```ballerina
-SimplePublicObjectInputForCreate payload = {
-   associations: [],
-   objectWriteTraceId: "1234",
-   properties: {
-      "hs_label": "test_discount",
-      "hs_duration": "ONCE",
-      "hs_type": "PERCENT",
-      "hs_value": "40",
-      "hs_sort_order": "2"
-   }
-};
-
-SimplePublicObject createResponse = check hubspotClient->/.post(payload);
-```
-
-#### List all discounts
+#### Create a new discount
 
 ```ballerina
-GetCrmV3ObjectsDiscountsQueries params = {
-   'limit: 10,
-   archived: false,
-   properties: ["hs_label", "hs_value", "hs_type"]
-};
+public function main() returns error? {
+    hscrmcd:SimplePublicObjectInputForCreate newDiscount = {
+        properties: {
+            "discount_name": "Summer Sale 2024",
+            "discount_type": "percentage",
+            "discount_value": "25",
+            "description": "25% off summer collection"
+        },
+        associations: []
+    };
 
-CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check hubspotClient->/.get(queries=params);
+    hscrmcd:SimplePublicObject response = check hubspotDiscountsClient->/.post(newDiscount);
+}
 ```
 
+### Step 4: Run the Ballerina application
+
+```bash
+bal run
+```
 ## Examples
 
-The HubSpot CRM Commerce Discounts connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/), covering the following use cases:
+The `hubspot.crm.commerce.discounts` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples), covering the following use cases:
 
-1. [Discount Manager](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/discount_manager) - see how the HubSpot API can be used to create discount and manage it through endpoints.
-2. [Festival Discounts](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/festival_discounts) - see how the HubSpot API can be used to create and to manage multiple discounts at a time.
-
+1. [Discount manager](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/discount_manager) - Demonstrates how to manage discount operations using Ballerina connector for HubSpot CRM Commerce Discounts.
+2. [Festival discounts](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/festival_discounts) - Illustrates creating and managing festival-specific discount campaigns.
+3. [Seasonal discount management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.discounts/tree/main/examples/seasonal-discount-management) - Shows how to implement seasonal discount strategies and automation.
 ## Build from the source
 
 ### Setting up the prerequisites
@@ -176,13 +115,13 @@ The HubSpot CRM Commerce Discounts connector provides practical examples illustr
     * [Oracle JDK](https://www.oracle.com/java/technologies/downloads/)
     * [OpenJDK](https://adoptium.net/)
 
-   > **Note:** After installation, remember to set the `JAVA_HOME` environment variable to the directory where JDK was installed.
+    > **Note:** After installation, remember to set the `JAVA_HOME` environment variable to the directory where JDK was installed.
 
 2. Download and install [Ballerina Swan Lake](https://ballerina.io/).
 
 3. Download and install [Docker](https://www.docker.com/get-started).
 
-   > **Note**: Ensure that the Docker daemon is running before executing any tests.
+    > **Note**: Ensure that the Docker daemon is running before executing any tests.
 
 4. Export Github Personal access token with read package permissions as follows,
 
@@ -197,39 +136,39 @@ Execute the commands below to build from the source.
 
 1. To build the package:
 
-   ```bash
-   ./gradlew clean build
-   ```
+    ```bash
+    ./gradlew clean build
+    ```
 
 2. To run the tests:
 
-   ```bash
-   ./gradlew clean test
-   ```
+    ```bash
+    ./gradlew clean test
+    ```
 
 3. To build the without the tests:
 
-   ```bash
-   ./gradlew clean build -x test
-   ```
+    ```bash
+    ./gradlew clean build -x test
+    ```
 
 4. To run tests against different environments:
 
-   ```bash
-   ./gradlew clean test -Pgroups=<Comma separated groups/test cases>
-   ```
+    ```bash
+    ./gradlew clean test -Pgroups=<Comma separated groups/test cases>
+    ```
 
 5. To debug the package with a remote debugger:
 
-   ```bash
-   ./gradlew clean build -Pdebug=<port>
-   ```
+    ```bash
+    ./gradlew clean build -Pdebug=<port>
+    ```
 
 6. To debug with the Ballerina language:
 
-   ```bash
-   ./gradlew clean build -PbalJavaDebug=<port>
-   ```
+    ```bash
+    ./gradlew clean build -PbalJavaDebug=<port>
+    ```
 
 7. Publish the generated artifacts to the local Ballerina Central repository:
 
@@ -239,9 +178,9 @@ Execute the commands below to build from the source.
 
 8. Publish the generated artifacts to the Ballerina Central repository:
 
-   ```bash
-   ./gradlew clean build -PpublishToCentral=true
-   ```
+    ```bash
+    ./gradlew clean build -PpublishToCentral=true
+    ```
 
 ## Contribute to Ballerina
 
@@ -252,6 +191,7 @@ For more information, go to the [contribution guidelines](https://github.com/bal
 ## Code of conduct
 
 All the contributors are encouraged to read the [Ballerina Code of Conduct](https://ballerina.io/code-of-conduct).
+
 
 ## Useful links
 
